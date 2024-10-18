@@ -159,10 +159,10 @@ module dut_wrapper #(
 parameter IN_BUS_WIDTH = 256,
 parameter OUT_BUS_WIDTH = 256
 )(
-    input logic     [SIG_WIDTH-1:0] in,
+    input logic     [IN_BUS_WIDTH-1:0] in,
     input logic     clk,
     input logic     rst_n,
-    output logic    [SIG_WIDTH-1:0] out
+    output logic    [OUT_BUS_WIDTH-1:0] out
 );
 """)
     a=0
