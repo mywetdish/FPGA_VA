@@ -1,5 +1,5 @@
 #Path to fpga_va dir
-FPGA_VA_DIR="/home/mwd24/fpga_va_qdma"
+FPGA_VA_DIR="/home/mwd24/FPGA_VA"
 
 #FPGA id
 FPGA_PF="01:00.0"
@@ -22,8 +22,8 @@ SIM_OPTS = -c \
            -l $(OUT)/sim.log
 
 # All Verilog / SystemVerilog files from example directory
-TESTBENCH = tb.sv
-DUT = test.sv
+TESTBENCH = src/tb.sv
+DUT = riscv_unit.sv
 
 ALL = $(TESTBENCH) $(DUT)
 

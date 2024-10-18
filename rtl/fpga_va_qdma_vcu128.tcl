@@ -156,36 +156,36 @@ if {[string equal [get_filesets -quiet sources_1] ""]} {
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 set files [list \
- [file normalize "${origin_dir}/rtl/c2h.sv"] \
- [file normalize "${origin_dir}/rtl/dut_wrapper.sv"] \
- [file normalize "${origin_dir}/rtl/h2c.sv"] \
- [file normalize "${origin_dir}/rtl/qdma_app.sv"] \
- [file normalize "${origin_dir}/rtl/top.sv"] \
+ [file normalize "${origin_dir}/rtl/src/qdma/c2h.sv"] \
+ [file normalize "${origin_dir}/rtl/src/qdma/dut_wrapper.sv"] \
+ [file normalize "${origin_dir}/rtl/src/qdma/h2c.sv"] \
+ [file normalize "${origin_dir}/rtl/src/qdma/qdma_app.sv"] \
+ [file normalize "${origin_dir}/rtl/src/qdma/top.sv"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/rtl/c2h.sv"
+set file "$origin_dir/rtl/src/qdma/c2h.sv"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
 
-set file "$origin_dir/rtl/dut_wrapper.sv"
+set file "$origin_dir/rtl/src/qdma/dut_wrapper.sv"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
 
-set file "$origin_dir/rtl/h2c.sv"
+set file "$origin_dir/rtl/src/qdma/h2c.sv"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
 
-set file "$origin_dir/rtl/qdma_app.sv"
+set file "$origin_dir/rtl/src/qdma/qdma_app.sv"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
 
-set file "$origin_dir/rtl/top.sv"
+set file "$origin_dir/rtl/src/qdma/top.sv"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
