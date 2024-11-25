@@ -10,6 +10,7 @@ Verified on Ubuntu Server 23.10
 
 For further steps please refer to following manuals:
 
+* [How to install libraries](lib/README.md)
 * [How to make rtl](rtl/README.md)
 * [How to use API](api/README.md)
 * [About parser](parser/README.md)
