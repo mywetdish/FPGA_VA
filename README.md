@@ -12,6 +12,7 @@ For further steps please refer to following manuals:
 
 * [How to install libraries](lib/README.md)
 * [How to make rtl](rtl/README.md)
+* [How to start simulation](tb/README.md)
 * [How to use API](api/README.md)
 * [About parser](parser/README.md)
-* [How to start simulation](tb/README.md)
+
