@@ -1,0 +1,1 @@
+cmd_/home/student/Desktop/fpga_va_slo/fpga_va_qdma-master/dpdk/dpdk-stable/dpdk-kmods/linux/igb_uio/igb_uio.mod := { echo  /home/student/Desktop/fpga_va_slo/fpga_va_qdma-master/dpdk/dpdk-stable/dpdk-kmods/linux/igb_uio/igb_uio.o;  echo; } > /home/student/Desktop/fpga_va_slo/fpga_va_qdma-master/dpdk/dpdk-stable/dpdk-kmods/linux/igb_uio/igb_uio.mod
