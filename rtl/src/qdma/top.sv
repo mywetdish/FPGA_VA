@@ -1,11 +1,12 @@
 `timescale 1ns / 1ps
 
 module top #(
-    parameter PL_LINK_CAP_MAX_LINK_WIDTH    = 8,    // 1 - X1; 2 - X2; 4 - X4; 8 - X8; 16 - X16
-    parameter PL_LINK_CAP_MAX_LINK_SPEED    = 8,    // 1 - GEN1; 2 - GEN2; 4 - GEN3; 8 - GEN4;
+    parameter PL_LINK_CAP_MAX_LINK_WIDTH    = 8,    // 1 - X1; 2 - X2; 4 - X4; 8 - X8
+    parameter PL_LINK_CAP_MAX_LINK_SPEED    = 4,    // 1 - GEN1; 2 - GEN2; 4 - GEN3
     parameter C_DATA_WIDTH                  = 256,
     parameter VIP2DUT_WORDS_NUM             = 1,
-    parameter DUT2VIP_WORDS_NUM             = 1
+    parameter DUT2VIP_WORDS_NUM             = 1,
+    parameter DEBUG_DUT_TEST                = 1
 ) (
     // PCIe RX/TX
     output logic    [(PL_LINK_CAP_MAX_LINK_WIDTH - 1) : 0]   pci_exp_txp,
@@ -261,7 +262,8 @@ qdma_app #(
     .CRC_WIDTH(CRC_WIDTH),
     .QID_WIDTH(QID_WIDTH),
     .VIP2DUT_WORDS_NUM(VIP2DUT_WORDS_NUM),
-    .DUT2VIP_WORDS_NUM(DUT2VIP_WORDS_NUM)
+    .DUT2VIP_WORDS_NUM(DUT2VIP_WORDS_NUM),
+    .DEBUG_DUT_TEST(DEBUG_DUT_TEST)
 ) 
 qdma_app_inst (
     .clk(axi_aclk),

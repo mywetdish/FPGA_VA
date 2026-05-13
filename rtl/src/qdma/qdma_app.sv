@@ -25,7 +25,8 @@ module qdma_app #(
     parameter CRC_WIDTH         = 32,
     parameter QID_WIDTH         = 11,
     parameter VIP2DUT_WORDS_NUM = 16,
-    parameter DUT2VIP_WORDS_NUM = 16
+    parameter DUT2VIP_WORDS_NUM = 16,
+    parameter DEBUG_DUT_TEST    = 1
 )(
     input logic clk,
     input logic rst_n,
