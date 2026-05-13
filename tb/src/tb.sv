@@ -8,6 +8,8 @@
 See https://github.com/MPSU/APS/blob/master/LICENSE file for licensing details.
 * ------------------------------------------------------------------------------
 */
+`timescale 1ns/1ns
+
 module tb();
 
   logic        clk100mhz_i;
@@ -16,6 +18,8 @@ module tb();
   logic        tx_o;
   logic        clk_i;
   logic        rst_i;
+  logic [31:0] instr, core;
+
 
   assign aresetn_i = !rst_i;
 
@@ -37,16 +41,17 @@ module tb();
     rst_i <= 1;
     repeat(2) @(posedge clk_i);
     rst_i <= 0;
-
     dummy_programming();
-
     coremark_cntr = 0;
     coremark_msg = {32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32};
     forever begin
       @(posedge clk_i);
       if(rx_valid) begin
         if((rx_data == 10) | (rx_data == 13)) begin
-          $display("%s", coremark_msg);
+          //$display("%p", coremark_msg);
+          for(int i = 0; i < 103; i++) begin
+            $write("%c", coremark_msg[i]);
+          end
           coremark_cntr = 0;
           coremark_msg = {32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32};
         end
@@ -58,12 +63,14 @@ module tb();
     end
   end
 
-  initial #500ms $finish();
   riscv_unit DUT(
-    .clk_i      (clk100mhz_i), 
+    .clk        (clk_i), 
     .resetn_i   (aresetn_i), 
+
     .rx_i       (rx_i), 
-    .tx_o       (tx_o)
+    .tx_o       (tx_o),
+    .instr_addr_o (instr),
+    .core_rd_o  (core)
 );
 
   uart_rx rx(
@@ -110,7 +117,11 @@ task rcv_data(input int size);
     str[i] = rx_data;
     size_val[3-i] = rx_data;
   end
-  if(size!=4)$display("%s", str);
+  if(size!=4) begin
+    for(int i = 0; i < size; i++) begin
+      $write("%c", str[i]);
+    end
+  end
   else $display("%d", size_val);
   wait(tx_o);
 endtask
@@ -137,7 +148,7 @@ task finish_programming();
 endtask
 
 task dummy_programming();
-  byte str [4] = {8'd0, 8'd0, 8'd0, 8'd0};
+  static byte str [4] = {8'd0, 8'd0, 8'd0, 8'd0};
   rcv_data(40);
   send_data(str);
   rcv_data(4);

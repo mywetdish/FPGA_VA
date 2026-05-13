@@ -1,5 +1,5 @@
 #Path to fpga_va dir
-FPGA_VA_DIR="/home/mwd24/FPGA_VA"
+FPGA_VA_DIR=".."
 
 #FPGA id
 FPGA_PF="01:00.0"
@@ -17,15 +17,14 @@ COMP_OPTS = -sv -work work $(ALL)
 SIM_OPTS = -c \
            -batch \
            -sv_lib $(FPGA_VA_DIR)/api/libfpga_va \
-           -do "run -all" \
+           -do do.tcl \
            -voptargs="+acc" \
            -l $(OUT)/sim.log
 
 # All Verilog / SystemVerilog files from example directory
-TESTBENCH = src/tb.sv
-DUT = riscv_unit.sv
+TESTBENCH = src/*.sv
 
-ALL = $(TESTBENCH) $(DUT)
+ALL = $(TESTBENCH)
 
 # Verbosity
 v =
@@ -52,7 +51,7 @@ endif
 $(OUT):
 	@mkdir -p $@
 connect: 
-	sudo modprobe uio
-	sudo insmod ${FPGA_VA_DIR}/lib/dpdk-stable/dpdk-kmods/linux/igb_uio/igb_uio.ko 
-	sudo python3 ${FPGA_VA_DIR}/lib/dpdk-stable/usertools/dpdk-devbind.py -b igb_uio ${FPGA_PF}
+	sudo modprobe vfio-pci
+	#sudo insmod ${FPGA_VA_DIR}/lib/dpdk-stable/dpdk-kmods/linux/igb_uio/igb_uio.ko 
+	sudo python3 ${FPGA_VA_DIR}/lib/dpdk-stable/usertools/dpdk-devbind.py -b vfio-pci ${FPGA_PF}
 	sudo python3 ${FPGA_VA_DIR}/lib/dpdk-stable/usertools/dpdk-devbind.py --status
