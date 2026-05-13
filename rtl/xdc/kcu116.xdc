@@ -48,7 +48,7 @@
 ##
 ##-----------------------------------------------------------------------------
 ##
-## Project    : The Xilinx PCI Express DMA 
+## Project    : The Xilinx PCI Express DMA
 ## File       : xilinx_pcie_qdma_ref_board.xdc
 ## Version    : 5.0
 ##-----------------------------------------------------------------------------
@@ -56,10 +56,11 @@
 # User Configuration
 # Link Width   - x8
 # Link Speed   - Gen3
-# Family       - virtexuplusHBM
-# Part         - xcvu37p
-# Package      - fsvh2892
-# Speed grade  - -2L
+# Family       - kintexuplus
+# Part         - xcku5p
+# Package      - ffvb676
+# Speed grade  - -2
+# Xilinx Reference Board is KCU116
 ###############################################################################
 # User Time Names / User Time Groups / Time Specs
 ###############################################################################
@@ -67,34 +68,17 @@
 ## Free Running Clock is Required for IBERT/DRP operations.
 ##
 #############################################################################################################
-create_clock -name sys_clk -period 10 [get_ports sys_clk_p]
+create_clock -period 10.000 -name sys_clk [get_ports sys_clk_p]
 #
 #############################################################################################################
 set_false_path -from [get_ports sys_rst_n]
 set_property PULLUP true [get_ports sys_rst_n]
 set_property IOSTANDARD LVCMOS18 [get_ports sys_rst_n]
 #
-set_property LOC [get_package_pins -filter {PIN_FUNC =~ *_PERSTN0_65}] [get_ports sys_rst_n]
-#set_property PACKAGE_PIN AJ31 [get_ports sys_rst_n]
+set_property PACKAGE_PIN T19 [get_ports sys_rst_n]
 #
 set_property CONFIG_VOLTAGE 1.8 [current_design]
 #
 #############################################################################################################
-set_property LOC [get_package_pins -of_objects [get_bels [get_sites -filter {NAME =~ *COMMON*} -of_objects [get_iobanks -of_objects [get_sites GTYE4_CHANNEL_X1Y15]]]/REFCLK0P]] [get_ports sys_clk_p]
-set_property LOC [get_package_pins -of_objects [get_bels [get_sites -filter {NAME =~ *COMMON*} -of_objects [get_iobanks -of_objects [get_sites GTYE4_CHANNEL_X1Y15]]]/REFCLK0N]] [get_ports sys_clk_n]
-#
-#############################################################################################################
-#############################################################################################################
-#
-#
-# BITFILE/BITSTREAM compress options
-#
-#set_property BITSTREAM.CONFIG.EXTMASTERCCLK_EN div-1 [current_design]
-#set_property BITSTREAM.CONFIG.BPI_SYNC_MODE Type1 [current_design]
-#set_property CONFIG_MODE BPI16 [current_design]
-#set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
-#set_property BITSTREAM.CONFIG.UNUSEDPIN Pulldown [current_design]
-#
-#
-set_false_path -to [get_pins -hier *sync_reg[0]/D]
-#
+set_property PACKAGE_PIN V6 [get_ports sys_clk_n]
+set_property PACKAGE_PIN V7 [get_ports sys_clk_p]
