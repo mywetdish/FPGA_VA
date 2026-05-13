@@ -4,6 +4,15 @@
 
 * [AMD Kintex UltraScale+ FPGA KCU116 Evaluation Kit](https://www.xilinx.com/products/boards-and-kits/ek-u1-kcu116-g.html) or any other QDMA-compatible FPGA (project .tcl script should be edited in this case);
 * [Vivado Design Suite](https://www.xilinx.com/products/design-tools/vivado.html); current project was built and tested in `2023.1`
+## RTL
+
+Here are three directories:
+
+* `rtl/design` - Your design
+* `rtl/include` - Your include
+* `rtl/qdma` - QDMA blocks and dut_wrapper directory
+
+Before you start to build a project, generate dut_wrapper file by parser!
 
 ## Build
 
@@ -22,6 +31,8 @@ mkdir -p projects
 cd projects
 vivado -mode batch -source <path_to_this_repository>/rtl/fpga_va_qdma_kcu116.tcl -tclargs [ --origin_dir "<path_to_this_repository>/rtl/" ]
 ```
+
+This script doesn`t add files from rtl/src/design and rtl/src/include to vivado project!
 
 ### Install xilinx vivado cable drivers
 
