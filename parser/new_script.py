@@ -263,7 +263,7 @@ def extract_one_parameter_from_imports(name, file_content, base_path="include"):
 
 parameter_flag = 0
 print("Enter design file name")
-file_name = input()
+file_name = "../rtl/src/design/" + input()
 with open(file_name, "r") as fd:
 #with open('rtl/miriscv_core.sv', "r") as fd:
   file_content_with_comments = fd.read()
