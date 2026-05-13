@@ -128,6 +128,8 @@ with open('a.sv', "r") as fd:
               output_match_range.start() if output_match_range else float('inf')
           )):
           print("Достигнут блок output logic. Остановка.")
+          print(signals_names_o)
+          print(signals_sizes_o)
           break      
 
         if output_match_single:
@@ -278,7 +280,7 @@ parameter OUT_BUS_WIDTH = 256
       file.write(""");\n""")
     
       file.write("""endmodule""")
-file_name  = '../tb/' + module_name + ".sv"
+file_name  = '../tb/src/' + module_name + ".sv"
 with open(file_name, "w") as file:
   file.write(
 """`timescale 1ns / 1ps
@@ -323,17 +325,17 @@ module """
   if(signals_sizes_o[-1] == 1):
     file.write("output  logic")
     file.write("""          """)
-    file.write(str(name))
+    file.write(str(signals_names_o[-1]))
     file.write("\n")
     file.write(");")
   else:
       file.write("output  logic")
       file.write("""   """)
       file.write("[")
-      file.write(str(size-1))
+      file.write(str(signals_sizes_o[-1]-1))
       file.write(":0]")
       file.write("""   """)
-      file.write(str(name))
+      file.write(str(signals_names_o[-1]))
       file.write("\n")
       file.write(");\n")
 
